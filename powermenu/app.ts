@@ -9,7 +9,6 @@ app.start({
   main() {
     app.apply_css(css, true);
     app.get_monitors().map(PowerMenuWindow)
-    app.get_monitors().map(VerificationWindow)
     app.get_window(windows_names.powermenu)?.show();
   },
 })

@@ -7,25 +7,27 @@ import { config, theme } from "@/options";
 import { bash } from "@/src/lib/utils";
 import Pango from "gi://Pango?version=1.0";
 import Adw from "gi://Adw?version=1";
+import { interval, timeout, idle, createPoll } from "ags/time"
 const powermenu = PowerMenu.get_default();
 
 
 export function UpdateLabel() {
-   const [countdown, setCountdown] = createState(5);
+   const [countdown, setCountdown] = createState(5)
 
    setInterval(() => {
       setCountdown(prev => {
-         const next = prev - 1;
-         return next;
+         // const next = prev - 1;
+         return prev - 1;
       });
    }, 1000);
 
-   const label = countdown.as(
-      (n) => `${createBinding(powermenu, "label")()} ${n} seconds`
-   );
+   var currentLabel = powermenu.label;
 
-   return label;
+   return countdown.as(
+      (n) => `${currentLabel} ${n} seconds`
+   );
 }
+
 
 
 export function VerificationModule() {

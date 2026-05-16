@@ -2,33 +2,11 @@ import { config } from "@/options";
 import { windows_names } from "@/windows";
 import GObject, { getter, property, register, signal } from "ags/gobject";
 import app from "ags/gtk4/app";
-import GLib from "gi://GLib?version=2.0";
 import { Timer } from "@/src/lib/timer";
 import { bash } from "@/src/lib/utils";
-import { timeout } from "ags/time";
+import { interval, timeout, idle, createPoll } from "ags/time"
 import { createBinding, createState } from "ags";
-
-
-const user = await GLib.getenv("USER");
-
-
-
-
-
-
-export function UpdateTimer() {
-   const [text, setText] = createState("5");
-   var timer = 5000;
-
-   setInterval(() => {
-      timer -= 1000;
-      setText(`${timer / 1000}`);
-   }, 1000);
-
-   return text;
-}
-
-const countdown = UpdateTimer();
+import {PowerMenuWindow, VerificationWindow} from "../windows/powermenu"
 
 
 
@@ -65,6 +43,15 @@ export default class PowerMenu extends GObject.Object {
    #label = "";
    #cmd = "";
    #timer = new Timer(4000);
+
+
+   countdown = 5;
+
+   updateCounter() {
+      interval(1000, () => {
+         this.countdown -= 1;
+      })
+   }
 
    @getter(String)
    get title() {
@@ -111,7 +98,7 @@ export default class PowerMenu extends GObject.Object {
          Logout: [
             commands.logout,
             "Log Out",
-            `${user} will be logged out automatically in`,
+            `The user will be logged out automatically in`,
          ],
          Shutdown: [
             commands.shutdown,
@@ -124,9 +111,12 @@ export default class PowerMenu extends GObject.Object {
       this.notify("title");
       this.notify("label");
       app.get_window(windows_names.powermenu)?.hide();
+      // app.get_window(windows_names.verification)?.show();
+      app.get_monitors().map(VerificationWindow)
       app.get_window(windows_names.verification)?.show();
 
       this.#timer.reset();
       this.#timer.start();
+      this.updateCounter()
    }
 }
