@@ -20,20 +20,6 @@ export function UpdateLabel() {
       });
    }, 1000);
 
-   // const label = createBinding(powermenu, "title").as(
-   //    (title) => {
-   //       const prefix =
-   //          title === "Sleep"   ? "The system will sleep automatically in" :
-   //          title === "Reboot"  ? "The system will restart automatically in" :
-   //          title === "Shutdown"? "The system will shut down automatically in" :
-   //          title === "Logout"  ? "The user will be logged out automatically in":
-   //          "";
-// 
-   //       return `${prefix}`;
-   //    }
-   // );
-
-   // Derive the full label string as a binding
    const label = countdown.as(
       (n) => `${createBinding(powermenu, "label")()} ${n} seconds`
    );
