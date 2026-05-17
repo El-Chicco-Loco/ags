@@ -1,16 +1,16 @@
 import app from "ags/gtk4/app"
 import request from "@/request";
 import { windows_names } from "@/windows";
-import {PowerMenuWindow} from "./src/windows/powermenu"
+import { AppLauncherWindow } from "./src/windows/applauncher";
 const css = "/home/alienware/.config/ags/common/style/main.css";
 
 app.start({
   icons: "/home/alienware/.icons/WhiteSur-nord-dark",
-  instanceName: "powermenu",
+  instanceName: "applauncher",
   main() {
     app.apply_css(css, true);
-    app.get_monitors().map(PowerMenuWindow)
-    app.get_window(windows_names.powermenu)?.show();
+    app.get_monitors().map(AppLauncherWindow)
+    app.get_window(windows_names.applauncher)?.show();
   },
     requestHandler(argv, response) {
     request(argv, response);

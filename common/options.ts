@@ -132,7 +132,7 @@ export const config = mkOptions(configFile, {
       sliders: ["volume", "brightness"],
    },
    launcher: {
-      width: 400,
+      width: 800,
       height: 500,
       centered: true,
       columns: 1,
