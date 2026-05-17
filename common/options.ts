@@ -1,9 +1,9 @@
 import GLib from "gi://GLib?version=2.0";
 import { createState } from "ags";
 import { mkOptions } from "./src/lib/option";
-const configDir = GLib.get_user_config_dir();
-const configFile = `${configDir}/delta-shell/config.json`;
-const themeFile = `${configDir}/delta-shell/theme.json`;
+// const configDir = GLib.get_user_config_dir();
+const configFile = "./config/config.json";
+const themeFile = "./config/theme.json";
 
 export const config = mkOptions(configFile, {
    transition: 0.2,
@@ -194,17 +194,17 @@ export const theme = mkOptions(themeFile, {
    },
    colors: {
       bg: {
-         0: "#1d1d20",
-         1: "#28282c",
-         2: "#36363a",
-         3: "#48484b",
+         0: "#161616",
+         1: "#161616",
+         2: "#282828",
+         3: "#282828",
       },
       fg: {
-         0: "#ffffff",
-         1: "#c0c0c0",
-         2: "#808080",
+         0: "#f6f6f6",
+         1: "#f6f6f6",
+         2: "#cfcfcf",
       },
-      accent: "#3584e4",
+      accent: "#8999a9",
       blue: "#3584e4",
       cyan: "#2190a4",
       green: "#3a944a",
@@ -226,11 +226,11 @@ export const theme = mkOptions(themeFile, {
       opacity: 1,
       margin: 10,
       border: {
-         width: 2,
+         width: 0,
          color: "$bg2",
       },
       outline: {
-         width: 2,
+         width: 0,
          color: "$fg1",
       },
       shadow: {
@@ -248,7 +248,7 @@ export const theme = mkOptions(themeFile, {
       padding: 6,
       spacing: 6,
       border: {
-         width: 2,
+         width: 0,
          color: "$bg2",
       },
       shadow: {

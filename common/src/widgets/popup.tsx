@@ -89,6 +89,7 @@ export function Popup({
             }}
          />
          <Gtk.GestureClick
+      // app.get_window(windows_names.verification)?.show();
             onPressed={({ widget }, _, x, y) => {
                const [, rect] = children.compute_bounds(widget);
                const position = new Graphene.Point({ x, y });

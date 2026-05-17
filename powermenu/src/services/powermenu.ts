@@ -1,24 +1,16 @@
-import { config } from "@/options";
 import { windows_names } from "@/windows";
 import GObject, { getter, property, register, signal } from "ags/gobject";
 import app from "ags/gtk4/app";
 import { Timer } from "@/src/lib/timer";
 import { bash } from "@/src/lib/utils";
-import { interval, timeout, idle, createPoll } from "ags/time"
-import { createBinding, createState } from "ags";
-import {PowerMenuWindow, VerificationWindow} from "../windows/powermenu"
-
-
-
-
-
+import {VerificationWindow} from "../windows/powermenu"
 
 
 const commands = {
-   sleep: "echo .", // "systemctl suspend",
-   reboot: "echo .", // "systemctl reboot",
-   logout: "echo .", // "loginctl terminate-user ${user}",
-   shutdown: "echo .", // "shutdown now",
+   sleep: "systemctl suspend",
+   reboot: "systemctl reboot",
+   logout: "loginctl terminate-user ${user}",
+   shutdown: "shutdown now",
 };
 
 @register({ GTypeName: "PowerMenu" })
@@ -42,16 +34,7 @@ export default class PowerMenu extends GObject.Object {
    #title = "";
    #label = "";
    #cmd = "";
-   #timer = new Timer(4000);
-
-
-   countdown = 5;
-
-   updateCounter() {
-      interval(1000, () => {
-         this.countdown -= 1;
-      })
-   }
+   #timer = new Timer(5000);
 
    @getter(String)
    get title() {
@@ -75,12 +58,12 @@ export default class PowerMenu extends GObject.Object {
    async executeCommand() {
       this.#timer.cancel();
       await bash(this.#cmd);
-      app.get_window(windows_names.verification)?.hide();
+      app.get_window(windows_names.verification)?.close();
    }
 
    cancelAction() {
       this.#timer.cancel();
-      app.get_window(windows_names.verification)?.hide();
+      app.get_window(windows_names.verification)?.close();
    }
 
    async action(action: string) {
@@ -111,12 +94,10 @@ export default class PowerMenu extends GObject.Object {
       this.notify("title");
       this.notify("label");
       app.get_window(windows_names.powermenu)?.hide();
-      // app.get_window(windows_names.verification)?.show();
       app.get_monitors().map(VerificationWindow)
       app.get_window(windows_names.verification)?.show();
 
       this.#timer.reset();
       this.#timer.start();
-      this.updateCounter()
    }
 }

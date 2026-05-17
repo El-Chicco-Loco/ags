@@ -120,7 +120,7 @@
   "launcher": {
     "width": 400,
     "height": 500,
-    "centered": false,
+    "centered": true,
     "columns": 1,
     "sort-type": "frequency"
   },
