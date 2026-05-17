@@ -49,10 +49,10 @@ export const icons = {
       muted: "ds-mic-off-symbolic",
    },
    powermenu: {
-      sleep: "ds-moon-symbolic",
-      reboot: "ds-refresh-cw-symbolic",
-      logout: "ds-log-out-symbolic",
-      shutdown: "ds-power-symbolic",
+      sleep: "system-suspend-symbolic",
+      reboot: "system-reboot-symbolic",
+      logout: "logout-symbolic",
+      shutdown: "system-shutdown-symbolic",
    } as Record<string, any>,
    volume: {
       muted: "ds-volume-x-symbolic",

@@ -197,7 +197,7 @@ export const theme = mkOptions(themeFile, {
          0: "#161616",
          1: "#161616",
          2: "#282828",
-         3: "#282828",
+         3: "#5d5d5d",
       },
       fg: {
          0: "#f6f6f6",
