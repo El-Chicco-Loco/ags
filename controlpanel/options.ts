@@ -109,7 +109,7 @@ export const config = mkOptions(configFile, {
          quicksettings: {
             format: "{icon}",
             "on-hover": "toggle-qs" as string | null,
-            "on-click": "toggle-qs" as string | null,
+            "on-click": null as string | null,
             "on-click-right": null as string | null,
             "on-click-middle": null as string | null,
          },

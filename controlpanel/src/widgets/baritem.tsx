@@ -26,6 +26,8 @@ type BarItemProps = JSX.IntrinsicElements["box"] & {
    format?: string;
    data?: FormatData;
    onHover?: string | null | Function;
+   onHoverOpen?: string | null | Function;
+   onHoverClose?: string | null | Function;
    onPrimaryClick?: string | null | Function;
    onSecondaryClick?: string | null | Function;
    onMiddleClick?: string | null | Function;
@@ -37,6 +39,8 @@ export const FunctionsList = {
    "prova": () => console.log('trigger'),
    "toggle-launcher": () => toggleWindow(windows_names.applauncher),
    "toggle-qs": () => toggleWindow(windows_names.quicksettings),
+   "open-qs": () => {app.get_window(windows_names.quicksettings)?.show()},
+   "close-qs": () => {app.get_window(windows_names.quicksettings)?.hide()},
    "toggle-calendar": () => toggleWindow(windows_names.calendar),
    "toggle-powermenu": () => toggleWindow(windows_names.powermenu),
    "toggle-clipboard": () => toggleWindow(windows_names.clipboard),
@@ -92,6 +96,7 @@ export const FunctionsList = {
    "brightness-down": () => (Brightness.get_default().screen -= 0.01),
 } as Record<string, any>;
  
+
 function parseFormat(format: string, data: FormatData): JSX.Element[] {
    const regex = /\{([^:}]+):?([^}]*)\}|([^{}]+)/g;
  
@@ -122,6 +127,7 @@ function parseFormat(format: string, data: FormatData): JSX.Element[] {
          return <box>{elements}</box>;
       });
 }
+
  
 function handleClick(
    button: number,
@@ -145,23 +151,7 @@ function handleClick(
    }
 }
  
-function handleScroll(
-   dy: number,
-   onUp?: string | null | Function,
-   onDown?: string | null | Function,
-) {
-   const handler = dy < 0 ? onUp : dy > 0 ? onDown : null;
- 
-   if (!handler || handler === "default") return;
- 
-   if (typeof handler === "function") {
-      handler();
-   } else {
-      const func = FunctionsList[handler as keyof typeof FunctionsList];
-      if (func) func();
-   }
-}
- 
+
 function handleHover(onHover?: string | null | Function) {
    if (!onHover || onHover === "default") return;
  
@@ -174,18 +164,40 @@ function handleHover(onHover?: string | null | Function) {
 }
 
 
+function handleHoverOpen(onHover?: string | null | Function) {
+   if (!onHover || onHover === "default") return;
 
-
-export function attachHover(box: Gtk.Box, onHover: handleHover): void {
-   const motion = new Gtk.EventControllerMotion();
-   motion.connect("enter", () => onHover());
-   motion.connect("leave", () => onHover());
-   box.add_controller(motion);
+   console.log('Open')
+ 
+   if (typeof onHover === "function") {
+      onHover();
+   } else {
+      const func = FunctionsList[onHover as keyof typeof FunctionsList];
+      if (func) func();
+   }
 }
 
 
+function handleHoverClose(onHover?: string | null | Function) {
+   if (!onHover || onHover === "default") return;
+
+   console.log('Close')
+ 
+   if (typeof onHover === "function") {
+      onHover();
+   } else {
+      const func = FunctionsList[onHover as keyof typeof FunctionsList];
+      if (func) func();
+   }
+}
 
 
+function attachHover(box: Gtk.Box, onHoverOpen: handleHover, onHoverClose: handleHover): void {
+   const motion = new Gtk.EventControllerMotion();
+   motion.connect("enter", () => onHoverOpen());
+   motion.connect("leave", () => onHoverClose());
+   box.add_controller(motion);
+}
 
  
 export default function BarItem({
@@ -194,6 +206,8 @@ export default function BarItem({
    format,
    data = {},
    onHover = "default",
+   onHoverOpen = "default",
+   onHoverClose = "default",
    onPrimaryClick = "default",
    onSecondaryClick = "default",
    onMiddleClick = "default",
@@ -217,32 +231,12 @@ export default function BarItem({
                });
                onCleanup(() => app.disconnect(appconnect));
             }
- 
-            // // Always attach scroll (not gated behind `window`)
-            // attachHoverScroll(self, ({ dy }) => {
-            //    handleScroll(dy, onScrollUp, onScrollDown);
-            // });
-
 
             attachHover(self, () => {
-               handleHover(onHover);
+               handleHover(onHoverOpen);
+            }, () => {
+               handleHover(onHoverClose);
             });
-
-            // const motion = new Gtk.EventControllerMotion();
-            // motion.connect("leave", () => handleHover(onHover));
-            // motion.connect("enter", () => handleHover(onHover));
-            // self.add_controller(motion);
-
-            
- 
-            // // Hover via EventControllerMotion
-            // if (onHover && onHover !== "default") {
-            //    const motionCtrl = new Gtk.EventControllerMotion();
-            //    motionCtrl.connect("enter", () => handleHover(onHover));
-            //    self.add_controller(motionCtrl);
-            //    onCleanup(() => self.remove_controller(motionCtrl));
-            // }
-
          }}
          {...rest}
       >

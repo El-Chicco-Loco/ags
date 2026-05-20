@@ -79,7 +79,7 @@
       },
       "quicksettings": {
         "format": "{icon}",
-        "on-click": "toggle-qs"
+        "on-hover": "toggle-qs"
       },
       "cpu": {
         "format": "{icon} {usage}"
