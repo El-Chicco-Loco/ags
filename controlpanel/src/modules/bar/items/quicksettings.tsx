@@ -10,9 +10,8 @@ export function QuickSettings() {
    return (
       <BarItem
          window={windows_names.quicksettings}
-         onHover={conf["on-hover"]}
-         onHoverOpen={"open-qs"}
-         onHoverClose={"close-qs"}
+         onHoverEnter={conf["on-hover-enter"]}
+         onHoverLeave={conf["on-hover-leave"]}
          onPrimaryClick={conf["on-click"]}
          onSecondaryClick={conf["on-click-right"]}
          onMiddleClick={conf["on-click-middle"]}

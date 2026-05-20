@@ -25,9 +25,8 @@ type BarItemProps = JSX.IntrinsicElements["box"] & {
    children?: any;
    format?: string;
    data?: FormatData;
-   onHover?: string | null | Function;
-   onHoverOpen?: string | null | Function;
-   onHoverClose?: string | null | Function;
+   onHoverEnter?: string | null | Function;
+   onHoverLeave?: string | null | Function;
    onPrimaryClick?: string | null | Function;
    onSecondaryClick?: string | null | Function;
    onMiddleClick?: string | null | Function;
@@ -164,38 +163,10 @@ function handleHover(onHover?: string | null | Function) {
 }
 
 
-function handleHoverOpen(onHover?: string | null | Function) {
-   if (!onHover || onHover === "default") return;
-
-   console.log('Open')
- 
-   if (typeof onHover === "function") {
-      onHover();
-   } else {
-      const func = FunctionsList[onHover as keyof typeof FunctionsList];
-      if (func) func();
-   }
-}
-
-
-function handleHoverClose(onHover?: string | null | Function) {
-   if (!onHover || onHover === "default") return;
-
-   console.log('Close')
- 
-   if (typeof onHover === "function") {
-      onHover();
-   } else {
-      const func = FunctionsList[onHover as keyof typeof FunctionsList];
-      if (func) func();
-   }
-}
-
-
-function attachHover(box: Gtk.Box, onHoverOpen: handleHover, onHoverClose: handleHover): void {
+function attachHover(box: Gtk.Box, onHoverEnter: handleHover, onHoverLeave: handleHover): void {
    const motion = new Gtk.EventControllerMotion();
-   motion.connect("enter", () => onHoverOpen());
-   motion.connect("leave", () => onHoverClose());
+   motion.connect("enter", () => onHoverEnter());
+   motion.connect("leave", () => onHoverLeave());
    box.add_controller(motion);
 }
 
@@ -205,9 +176,8 @@ export default function BarItem({
    children,
    format,
    data = {},
-   onHover = "default",
-   onHoverOpen = "default",
-   onHoverClose = "default",
+   onHoverEnter = "default",
+   onHoverLeave = "default",
    onPrimaryClick = "default",
    onSecondaryClick = "default",
    onMiddleClick = "default",
@@ -233,9 +203,9 @@ export default function BarItem({
             }
 
             attachHover(self, () => {
-               handleHover(onHoverOpen);
+               handleHover(onHoverEnter);
             }, () => {
-               handleHover(onHoverClose);
+               handleHover(onHoverLeave);
             });
          }}
          {...rest}
