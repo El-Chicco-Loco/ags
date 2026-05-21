@@ -11,6 +11,7 @@ import AstalNetwork from "gi://AstalNetwork?version=0.1";
 import AstalBluetooth from "gi://AstalBluetooth?version=0.1";
 import { WeatherPage } from "./pages/weather";
 import { NotificationsListPage } from "./pages/notificationslist";
+import { attachHover, handleHover } from "../../widgets/baritem";
 export const [qs_page, qs_page_set] = createState("main");
 
 export function QuickSettingsModule() {
@@ -32,7 +33,14 @@ export function QuickSettingsModule() {
                console.log(`QuickSettings: switching to page ${page}`);
                self.set_visible_child_name(page);
             });
+
+            attachHover(self, () => {
+               handleHover("open-qs-popup");
+            }, () => {
+               handleHover("close-qs-popup");
+            });
          }}
+
       >
          <MainPage />
          {network.wifi !== null && <NetworkPage />}

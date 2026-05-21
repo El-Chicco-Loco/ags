@@ -44,22 +44,22 @@ export const FunctionsList = {
    "open-qs": () => {
       isBarHovered = true; 
       app.get_window(windows_names.quicksettings)?.show()
-   console.log(isBarHovered, isPopupHovered)},
+},
    "close-qs": () => {
       isBarHovered = false; 
       setTimeout(() => {if (!isBarHovered && !isPopupHovered) {
          app.get_window(windows_names.quicksettings)?.hide()
-      }}, 500)
-   console.log(isBarHovered, isPopupHovered)},
+      }}, 200)
+},
    "open-qs-popup": () => {
       isPopupHovered = true
-   console.log(isBarHovered, isPopupHovered)},
+},
    "close-qs-popup": () => {
       isPopupHovered = false;
       setTimeout(() => {if (!isBarHovered && !isPopupHovered) {
          app.get_window(windows_names.quicksettings)?.hide()
-      }}, 500)
-   console.log(isBarHovered, isPopupHovered)},
+      }}, 200)
+},
    "toggle-calendar": () => toggleWindow(windows_names.calendar),
    "toggle-powermenu": () => toggleWindow(windows_names.powermenu),
    "toggle-clipboard": () => toggleWindow(windows_names.clipboard),
