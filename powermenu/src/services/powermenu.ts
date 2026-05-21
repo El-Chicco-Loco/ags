@@ -34,7 +34,7 @@ export default class PowerMenu extends GObject.Object {
    #title = "";
    #label = "";
    #cmd = "";
-   #timer = new Timer(5000);
+   #timer = new Timer(3000);
 
    @getter(String)
    get title() {

@@ -12,13 +12,10 @@ const powermenu = PowerMenu.get_default();
 
 
 export function UpdateLabel() {
-   const [countdown, setCountdown] = createState(5)
+   const [countdown, setCountdown] = createState(3)
 
    setInterval(() => {
-      setCountdown(prev => {
-         // const next = prev - 1;
-         return prev - 1;
-      });
+      setCountdown(prev => {return prev - 1});
    }, 1000);
 
    var currentLabel = powermenu.label;
