@@ -33,13 +33,33 @@ type BarItemProps = JSX.IntrinsicElements["box"] & {
    onScrollDown?: string | null | Function;
    onScrollUp?: string | null | Function;
 };
+
+let isBarHovered = false;
+let isPopupHovered = false;
  
 export const FunctionsList = {
    "prova": () => console.log('trigger'),
    "toggle-launcher": () => toggleWindow(windows_names.applauncher),
    "toggle-qs": () => toggleWindow(windows_names.quicksettings),
-   "open-qs": () => {app.get_window(windows_names.quicksettings)?.show()},
-   "close-qs": () => {app.get_window(windows_names.quicksettings)?.hide()},
+   "open-qs": () => {
+      isBarHovered = true; 
+      app.get_window(windows_names.quicksettings)?.show()
+   console.log(isBarHovered, isPopupHovered)},
+   "close-qs": () => {
+      isBarHovered = false; 
+      setTimeout(() => {if (!isBarHovered && !isPopupHovered) {
+         app.get_window(windows_names.quicksettings)?.hide()
+      }}, 500)
+   console.log(isBarHovered, isPopupHovered)},
+   "open-qs-popup": () => {
+      isPopupHovered = true
+   console.log(isBarHovered, isPopupHovered)},
+   "close-qs-popup": () => {
+      isPopupHovered = false;
+      setTimeout(() => {if (!isBarHovered && !isPopupHovered) {
+         app.get_window(windows_names.quicksettings)?.hide()
+      }}, 500)
+   console.log(isBarHovered, isPopupHovered)},
    "toggle-calendar": () => toggleWindow(windows_names.calendar),
    "toggle-powermenu": () => toggleWindow(windows_names.powermenu),
    "toggle-clipboard": () => toggleWindow(windows_names.clipboard),
@@ -151,7 +171,7 @@ function handleClick(
 }
  
 
-function handleHover(onHover?: string | null | Function) {
+export function handleHover(onHover?: string | null | Function) {
    if (!onHover || onHover === "default") return;
  
    if (typeof onHover === "function") {
@@ -163,7 +183,7 @@ function handleHover(onHover?: string | null | Function) {
 }
 
 
-function attachHover(box: Gtk.Box, onHoverEnter: handleHover, onHoverLeave: handleHover): void {
+export function attachHover(box: Gtk.Box, onHoverEnter: handleHover, onHoverLeave: handleHover): void {
    const motion = new Gtk.EventControllerMotion();
    motion.connect("enter", () => onHoverEnter());
    motion.connect("leave", () => onHoverLeave());

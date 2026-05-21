@@ -5,10 +5,10 @@
     "position": "right-corner",
     "modules": {
       "start": [],
-      "center": [
+      "center": [],
+      "end": [
         "quicksettings"
       ],
-      "end": [],
       "launcher": {
         "format": "{icon}",
         "on-click": "toggle-launcher"
@@ -79,7 +79,8 @@
       },
       "quicksettings": {
         "format": "{icon}",
-        "on-hover": "toggle-qs"
+        "on-hover-enter": "open-qs",
+        "on-hover-leave": "close-qs"
       },
       "cpu": {
         "format": "{icon} {usage}"

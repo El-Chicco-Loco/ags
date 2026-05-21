@@ -134,12 +134,10 @@ export function toggleWindow(name: string): void {
       return;
    }
 
-   console.log(win.visible)
-
    if (win.visible) {
       win.hide();
    } else {
-      // hideWindows();
+      hideWindows();
       win.show();
    }
 }

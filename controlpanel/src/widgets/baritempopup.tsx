@@ -43,6 +43,8 @@ export function BarItemPopup({
          switch (bar_pos) {
             case "right":
                return Gtk.Align.END;
+            case "right-corner":
+               return Gtk.Align.END;
             case "left":
                return Gtk.Align.START;
          }
@@ -73,6 +75,8 @@ export function BarItemPopup({
                return Gtk.Align.START;
             case "bottom":
                return Gtk.Align.END;
+            case "right-corner":
+               return Gtk.Align.START;
          }
       }
    }

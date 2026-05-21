@@ -12,8 +12,8 @@ export const config = mkOptions(configFile, {
       position: "right-corner" as "top" | "bottom" | "left" | "right" | "right-corner",
       modules: {
          start: [],
-         center: ["quicksettings"],
-         end: [],
+         center: [],
+         end: ["quicksettings"],
          launcher: {
             format: "{icon}",
             "on-click": "toggle-launcher" as string | null,
