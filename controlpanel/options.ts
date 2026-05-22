@@ -8,7 +8,7 @@ const themeFile = "config/theme.json";
 export const config = mkOptions(configFile, {
    transition: 0.2,
    bar: {
-      size: 48,
+      size: 20,
       position: "top" as "top" | "bottom" | "left" | "right",
       modules: {
          start: [],
@@ -244,20 +244,20 @@ export const theme = mkOptions(themeFile, {
       },
    },
    bar: {
-      bg: "$bg0",
-      opacity: 1,
+      bg: "transparent",
+      opacity: 0,
       margin: [0, 0, 0, 0],
       padding: 6,
       spacing: 16,
       border: {
-         width: 2,
-         color: "$bg2",
+         width: 0,
+         color: "transparent",
       },
       shadow: {
          offset: [0, 0],
          blur: 10,
          spread: 0,
-         color: "black",
+         color: "transparent",
          opacity: 0.4,
       },
       separator: {

@@ -12,7 +12,7 @@ app.start({
     app.get_monitors().map(PowerMenuWindow)
     app.get_window(windows_names.powermenu)?.show();
   },
-    requestHandler(argv, response) {
+  requestHandler(argv, response) {
     request(argv, response);
   },
 })

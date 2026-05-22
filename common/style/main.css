@@ -9,18 +9,18 @@ window#bar {
 }
 window#bar .main {
   margin: 0px 0px 0px 0px;
-  background: #1d1d20;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
-  min-height: 48px;
+  background: rgba(0, 0, 0, 0);
+  min-height: 20px;
+  border-bottom: 0px solid transparent;
 }
 window#bar tooltip {
-  background: #1d1d20;
-  border: 2px solid #36363a;
+  background: rgba(29, 29, 32, 0);
+  border: 0px solid transparent;
   border-radius: 8px;
 }
 window#bar separator {
   border-radius: 8px;
-  background: #36363a;
+  background: rgba(54, 54, 58, 0);
 }
 window#bar separator.vertical {
   margin: 0 6px;
@@ -39,23 +39,25 @@ window#bar .modules-end > .bar-item:last-child {
   padding-right: 6px;
 }
 window#bar .bar-item {
+  min-width: 300px;
   background: transparent;
   font-weight: normal;
   padding: 6px 0;
 }
 window#bar .bar-item .content {
   border-radius: 8px;
-  background: #1d1d20;
+  background: transparent;
   border: 0px solid #36363a;
   color: #ffffff;
   padding: 0px 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
 }
 window#bar .bar-item:hover .content {
-  background: #28282c;
+  background: transparent;
   transition: background 0.2s;
 }
 window#bar .bar-item.active .content {
-  background: #36363a;
+  background: transparent;
   transition: background 0.2s;
 }
 @keyframes blink {
@@ -98,6 +100,9 @@ window#bar .workspaces.compact:hover .content .workspace.active {
 window#bar .workspaces.compact:hover .content .workspace {
   transition: all 0.2s;
 }
+window#bar .workspaces .workspace.minimal .content, window#bar .workspaces .workspace.empty .content {
+  padding: 0px 12px;
+}
 window#bar .record-indicator {
   animation-name: blink;
   animation-duration: 0.5s;
@@ -110,6 +115,7 @@ window#bar .tray {
   border: 0px solid #36363a;
   border-radius: 8px;
   margin: 6px 0;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
 }
 window#bar .tray .toggle {
   background: transparent;
@@ -121,9 +127,10 @@ window#bar .tray .toggle:hover {
 }
 window#bar .tray .menu.menu > contents {
   background: #1d1d20;
-  border: 2px solid #36363a;
+  border: 0px solid transparent;
   border-radius: 8px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
+  margin-top: 5px;
 }
 window#bar .tray .menu modelbutton {
   border-radius: 8px;

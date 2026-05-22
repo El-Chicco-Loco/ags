@@ -65,8 +65,6 @@ export function BarWindow({
             return RIGHT | BOTTOM | TOP;
          case "left":
             return LEFT | BOTTOM | TOP;
-         case "right-corner":
-            return TOP | RIGHT;
       }
    }
 
@@ -77,7 +75,7 @@ export function BarWindow({
          namespace={windows_names.bar}
          class={windows_names.bar}
          gdkmonitor={gdkmonitor}
-         exclusivity={Astal.Exclusivity.EXCLUSIVE}
+         // exclusivity={Astal.Exclusivity.EXCLUSIVE}
          layer={Astal.Layer.TOP}
          anchor={anchor()}
          application={app}

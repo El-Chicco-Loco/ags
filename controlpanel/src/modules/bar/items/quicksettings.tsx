@@ -15,7 +15,7 @@ export function QuickSettings() {
          onPrimaryClick={conf["on-click"]}
          onSecondaryClick={conf["on-click-right"]}
          onMiddleClick={conf["on-click-middle"]}
-         data={{
+         /* data={{
             icon: (
                <image
                   hexpand={isVertical}
@@ -24,7 +24,7 @@ export function QuickSettings() {
                />
             ),
          }}
-         format={conf.format}
+         format={conf.format} */
       />
    );
 }
