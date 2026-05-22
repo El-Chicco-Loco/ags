@@ -2,7 +2,7 @@
   "transition": 0.2,
   "bar": {
     "size": 48,
-    "position": "right-corner",
+    "position": "top",
     "modules": {
       "start": [],
       "center": [],

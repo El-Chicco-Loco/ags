@@ -9,7 +9,7 @@ export const config = mkOptions(configFile, {
    transition: 0.2,
    bar: {
       size: 48,
-      position: "right-corner" as "top" | "bottom" | "left" | "right" | "right-corner",
+      position: "top" as "top" | "bottom" | "left" | "right",
       modules: {
          start: [],
          center: [],
@@ -248,7 +248,7 @@ export const theme = mkOptions(themeFile, {
       opacity: 1,
       margin: [0, 0, 0, 0],
       padding: 6,
-      spacing: 6,
+      spacing: 16,
       border: {
          width: 2,
          color: "$bg2",

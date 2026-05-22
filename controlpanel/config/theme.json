@@ -65,7 +65,7 @@
       0
     ],
     "padding": 6,
-    "spacing": 6,
+    "spacing": 16,
     "border": {
       "width": 2,
       "color": "$bg2"
