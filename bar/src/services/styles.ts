@@ -91,7 +91,7 @@ const variables = () => [
    $("shadow", `${theme.shadow}`),
 ];
 
-const style_path = `/home/alienware/.config/ags/common/src/styles`;
+const style_path = `/home/alienware/.config/ags/bar/src/styles`;
 const style_files = [
    `${style_path}/_extra.scss`,
    `${style_path}/bar.scss`,
@@ -119,8 +119,8 @@ export async function resetCss() {
 
    try {
       const vars = `/home/alienware/.style/variables.scss`;
-      const scss = `/home/alienware/.config/ags/common/style/main.scss`;
-      const css = `/home/alienware/.config/ags/common/style/main.css`;
+      const scss = `/home/alienware/.config/ags/style/main.scss`;
+      const css = `/home/alienware/.config/ags/style/main.css`;
 
       const imports = [vars, ...style_files].map((f) => `@import '${f}';`);
 
