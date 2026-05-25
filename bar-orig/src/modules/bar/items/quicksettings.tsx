@@ -10,12 +10,10 @@ export function QuickSettings() {
    return (
       <BarItem
          window={windows_names.quicksettings}
-         onHoverEnter={conf["on-hover-enter"]}
-         onHoverLeave={conf["on-hover-leave"]}
          onPrimaryClick={conf["on-click"]}
          onSecondaryClick={conf["on-click-right"]}
          onMiddleClick={conf["on-click-middle"]}
-         /* data={{
+         data={{
             icon: (
                <image
                   hexpand={isVertical}
@@ -24,7 +22,7 @@ export function QuickSettings() {
                />
             ),
          }}
-         format={conf.format} */
+         format={conf.format}
       />
    );
 }

@@ -17,16 +17,14 @@ import AstalWp from "gi://AstalWp?version=0.1";
 import ScreenRecorder from "@/src/services/screenrecorder";
 import { compositor } from "../lib/compositor";
 import Brightness from "../services/brightness";
- 
+
 type FormatData = Record<string, JSX.Element>;
- 
+
 type BarItemProps = JSX.IntrinsicElements["box"] & {
    window?: string;
    children?: any;
    format?: string;
    data?: FormatData;
-   onHoverEnter?: string | null | Function;
-   onHoverLeave?: string | null | Function;
    onPrimaryClick?: string | null | Function;
    onSecondaryClick?: string | null | Function;
    onMiddleClick?: string | null | Function;
@@ -34,32 +32,9 @@ type BarItemProps = JSX.IntrinsicElements["box"] & {
    onScrollUp?: string | null | Function;
 };
 
-let isBarHovered = false;
-let isPopupHovered = false;
- 
 export const FunctionsList = {
-   "prova": () => console.log('trigger'),
    "toggle-launcher": () => toggleWindow(windows_names.applauncher),
    "toggle-qs": () => toggleWindow(windows_names.quicksettings),
-   "open-qs": () => {
-      isBarHovered = true; 
-      app.get_window(windows_names.quicksettings)?.show()
-},
-   "close-qs": () => {
-      isBarHovered = false; 
-      setTimeout(() => {if (!isBarHovered && !isPopupHovered) {
-         app.get_window(windows_names.quicksettings)?.hide()
-      }}, 200)
-},
-   "open-qs-popup": () => {
-      isPopupHovered = true
-},
-   "close-qs-popup": () => {
-      isPopupHovered = false;
-      setTimeout(() => {if (!isBarHovered && !isPopupHovered) {
-         app.get_window(windows_names.quicksettings)?.hide()
-      }}, 200)
-},
    "toggle-calendar": () => toggleWindow(windows_names.calendar),
    "toggle-powermenu": () => toggleWindow(windows_names.powermenu),
    "toggle-clipboard": () => toggleWindow(windows_names.clipboard),
@@ -114,20 +89,19 @@ export const FunctionsList = {
    "brightness-up": () => (Brightness.get_default().screen += 0.01),
    "brightness-down": () => (Brightness.get_default().screen -= 0.01),
 } as Record<string, any>;
- 
 
 function parseFormat(format: string, data: FormatData): JSX.Element[] {
    const regex = /\{([^:}]+):?([^}]*)\}|([^{}]+)/g;
- 
+
    return format
       .split(" ")
       .filter((group) => group.trim() !== "")
       .map((group) => {
          const matches = Array.from(group.matchAll(regex));
- 
+
          const elements = matches.map((match) => {
             const [_, key, size, text] = match;
- 
+
             if (key) {
                const trimmedKey = key.trim();
                if (data && trimmedKey in data) {
@@ -135,19 +109,18 @@ function parseFormat(format: string, data: FormatData): JSX.Element[] {
                }
                return <label label={`{${trimmedKey}}`} hexpand={isVertical} />;
             }
- 
+
             return <label label={text} hexpand={isVertical} />;
          });
- 
+
          if (elements.length === 1) {
             return elements[0];
          }
- 
+
          return <box>{elements}</box>;
       });
 }
 
- 
 function handleClick(
    button: number,
    onPrimary?: string | null | Function,
@@ -155,13 +128,13 @@ function handleClick(
    onMiddle?: string | null | Function,
 ) {
    let handler: string | Function | null | undefined;
- 
+
    if (button === Gdk.BUTTON_PRIMARY) handler = onPrimary;
    if (button === Gdk.BUTTON_SECONDARY) handler = onSecondary;
    if (button === Gdk.BUTTON_MIDDLE) handler = onMiddle;
- 
+
    if (!handler || handler === "default") return;
- 
+
    if (typeof handler === "function") {
       handler();
    } else {
@@ -169,35 +142,29 @@ function handleClick(
       if (func) func();
    }
 }
- 
 
-export function handleHover(onHover?: string | null | Function) {
-   if (!onHover || onHover === "default") return;
- 
-   if (typeof onHover === "function") {
-      onHover();
+function handleScroll(
+   dy: number,
+   onUp?: string | null | Function,
+   onDown?: string | null | Function,
+) {
+   const handler = dy < 0 ? onUp : dy > 0 ? onDown : null;
+
+   if (!handler || handler === "default") return;
+
+   if (typeof handler === "function") {
+      handler();
    } else {
-      const func = FunctionsList[onHover as keyof typeof FunctionsList];
+      const func = FunctionsList[handler as keyof typeof FunctionsList];
       if (func) func();
    }
 }
 
-
-export function attachHover(box: Gtk.Box, onHoverEnter: handleHover, onHoverLeave: handleHover): void {
-   const motion = new Gtk.EventControllerMotion();
-   motion.connect("enter", () => onHoverEnter());
-   motion.connect("leave", () => onHoverLeave());
-   box.add_controller(motion);
-}
-
- 
 export default function BarItem({
    window = "",
    children,
    format,
    data = {},
-   onHoverEnter = "default",
-   onHoverLeave = "default",
    onPrimaryClick = "default",
    onSecondaryClick = "default",
    onMiddleClick = "default",
@@ -206,7 +173,7 @@ export default function BarItem({
    ...rest
 }: BarItemProps) {
    const content = format ? parseFormat(format, data) : children;
- 
+
    return (
       <box
          class={"bar-item"}
@@ -220,13 +187,11 @@ export default function BarItem({
                   }
                });
                onCleanup(() => app.disconnect(appconnect));
-            }
 
-            attachHover(self, () => {
-               handleHover(onHoverEnter);
-            }, () => {
-               handleHover(onHoverLeave);
-            });
+               attachHoverScroll(self, ({ dy }) => {
+                  handleScroll(dy, onScrollUp, onScrollDown);
+               });
+            }
          }}
          {...rest}
       >
@@ -252,4 +217,3 @@ export default function BarItem({
       </box>
    );
 }
- 

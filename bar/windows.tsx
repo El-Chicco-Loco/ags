@@ -55,22 +55,11 @@ export function hideWindows() {
 }
 
 export function windows() {
-  // prettier-ignore
+  
   const windows: Array<[condition: boolean, open: () => void]> = [
-    [true, AppLauncherWindow],
     [true, QuickSettingsWindow],
-    [true, CalendarWindow],          // <------ always open
-    [true, PowerMenuWindow],         //  ↓↓↓↓ open if condition === true
-    [true, VerificationWindow],
-    [config.weather.enabled && hasBarItem("weather"),                    WeatherWindow],
     [config.notifications.enabled && hasBarItem("notificationslist"),    NotificationsListWindow],
     [config.notifications.enabled,                                       NotificationsWindow],
-    [config.osd.enabled,                                                 OsdWindow],
-    [config.clipboard.enabled && dependencies("wl-paste", "cliphist"),   ClipboardWindow],
-    [hasBarItem("volume") || hasBarItem("microphone"),                   VolumeWindow],
-    [hasBarItem("network"),                                              NetworkWindow],
-    [hasBarItem("bluetooth"),                                            BluetoothWindow],
-    [hasBarItem("battery"),                                              PowerWindow],
   ];
 
   for (const [condition, open] of windows) {
@@ -86,12 +75,6 @@ export function windows() {
           gdkmonitor={monitor}
           $={(self) => onCleanup(() => self.destroy())}
         />
-        {theme.shadow && (
-          <BarShadowWindow
-            gdkmonitor={monitor}
-            $={(self) => onCleanup(() => self.destroy())}
-          />
-        )}
       </This>
     )}
   </For>;

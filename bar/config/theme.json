@@ -56,8 +56,8 @@
     }
   },
   "bar": {
-    "bg": "transparent",
-    "opacity": 0,
+    "bg": "$bg0",
+    "opacity": 1,
     "margin": [
       0,
       0,

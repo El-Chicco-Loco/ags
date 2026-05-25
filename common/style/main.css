@@ -9,18 +9,19 @@ window#bar {
 }
 window#bar .main {
   margin: 0px 0px 0px 0px;
-  background: rgba(0, 0, 0, 0);
-  min-height: 20px;
+  background: #1d1d20;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
+  min-height: 40px;
   border-bottom: 0px solid transparent;
 }
 window#bar tooltip {
-  background: rgba(29, 29, 32, 0);
+  background: #1d1d20;
   border: 0px solid transparent;
   border-radius: 8px;
 }
 window#bar separator {
   border-radius: 8px;
-  background: rgba(54, 54, 58, 0);
+  background: #36363a;
 }
 window#bar separator.vertical {
   margin: 0 6px;
@@ -50,7 +51,6 @@ window#bar .bar-item .content {
   border: 0px solid #36363a;
   color: #ffffff;
   padding: 0px 8px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
 }
 window#bar .bar-item:hover .content {
   background: transparent;
@@ -115,7 +115,6 @@ window#bar .tray {
   border: 0px solid #36363a;
   border-radius: 8px;
   margin: 6px 0;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
 }
 window#bar .tray .toggle {
   background: transparent;
@@ -179,6 +178,7 @@ window#barshadow {
 window#barshadow .shadow {
   margin-right: 8px;
   margin-left: 8px;
+  box-shadow: inset 0px 10px 8px -10px rgba(0, 0, 0, 0.4);
 }
 
 window#calendar {

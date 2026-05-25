@@ -91,7 +91,7 @@ const variables = () => [
    $("shadow", `${theme.shadow}`),
 ];
 
-const style_path = `/home/alienware/.config/ags/common/src/styles`;
+const style_path = `${DATADIR ?? SRC}/src/styles`;
 const style_files = [
    `${style_path}/_extra.scss`,
    `${style_path}/bar.scss`,
@@ -118,9 +118,9 @@ export async function resetCss() {
    console.log("Styles: compiling stylesheets");
 
    try {
-      const vars = `/home/alienware/.style/variables.scss`;
-      const scss = `/home/alienware/.config/ags/common/style/main.scss`;
-      const css = `/home/alienware/.config/ags/common/style/main.css`;
+      const vars = `${GLib.get_tmp_dir()}/delta-shell/variables.scss`;
+      const scss = `${GLib.get_tmp_dir()}/delta-shell/main.scss`;
+      const css = `${GLib.get_tmp_dir()}/delta-shell/main.css`;
 
       const imports = [vars, ...style_files].map((f) => `@import '${f}';`);
 

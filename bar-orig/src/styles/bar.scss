@@ -76,7 +76,6 @@ window#bar {
   }
 
   .bar-item {
-    width: 1200px;
     background: transparent;
     font-weight: normal;
     @if $bar-vertical {
@@ -86,7 +85,6 @@ window#bar {
     }
 
     .content {
-      width: 1200px;
       border-radius: $widget-radius;
       background: rgba($bar-button-bg, $bar-button-opacity);
       border: $bar-button-border-width solid $bar-button-border-color;

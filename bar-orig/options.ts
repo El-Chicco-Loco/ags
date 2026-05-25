@@ -2,18 +2,18 @@ import GLib from "gi://GLib?version=2.0";
 import { createState } from "ags";
 import { mkOptions } from "./src/lib/option";
 const configDir = GLib.get_user_config_dir();
-const configFile = "config/config.json";
-const themeFile = "config/theme.json";
+const configFile = `${configDir}/delta-shell/config.json`;
+const themeFile = `${configDir}/delta-shell/theme.json`;
 
 export const config = mkOptions(configFile, {
    transition: 0.2,
    bar: {
-      size: 20,
+      size: 48,
       position: "top" as "top" | "bottom" | "left" | "right",
       modules: {
-         start: [],
-         center: [],
-         end: ["quicksettings"],
+         start: ["launcher", "workspaces"],
+         center: ["clock"],
+         end: ["recordindicator", "tray", "keyboard", "quicksettings"],
          launcher: {
             format: "{icon}",
             "on-click": "toggle-launcher" as string | null,
@@ -108,9 +108,7 @@ export const config = mkOptions(configFile, {
          },
          quicksettings: {
             format: "{icon}",
-            "on-hover-enter": "open-qs" as string | null,
-            "on-hover-leave": "close-qs" as string | null,
-            "on-click": null as string | null,
+            "on-click": "toggle-qs" as string | null,
             "on-click-right": null as string | null,
             "on-click-middle": null as string | null,
          },
@@ -244,20 +242,20 @@ export const theme = mkOptions(themeFile, {
       },
    },
    bar: {
-      bg: "transparent",
-      opacity: 0,
+      bg: "$bg0",
+      opacity: 1,
       margin: [0, 0, 0, 0],
       padding: 6,
-      spacing: 16,
+      spacing: 6,
       border: {
-         width: 0,
-         color: "transparent",
+         width: 2,
+         color: "$bg2",
       },
       shadow: {
          offset: [0, 0],
          blur: 10,
          spread: 0,
-         color: "transparent",
+         color: "black",
          opacity: 0.4,
       },
       separator: {

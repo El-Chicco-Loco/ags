@@ -1,11 +1,13 @@
 {
   "transition": 0.2,
   "bar": {
-    "size": 20,
+    "size": 40,
     "position": "top",
     "modules": {
       "start": [],
-      "center": [],
+      "center": [
+        "workspaces"
+      ],
       "end": [
         "quicksettings"
       ],
