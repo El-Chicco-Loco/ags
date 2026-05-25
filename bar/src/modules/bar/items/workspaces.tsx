@@ -2,11 +2,7 @@ import { Gdk, Gtk } from "ags/gtk4";
 import { createBinding, createComputed, For } from "ags";
 import { compositor } from "@/src/lib/compositor";
 import { config, theme } from "@/options";
-import {
-   attachHoverScroll,
-   getAppInfo,
-   truncateByFormat,
-} from "@/src/lib/utils";
+import { attachHoverScroll, getAppInfo, truncateByFormat } from "@/src/lib/utils";
 import { icons } from "@/src/lib/icons";
 import BarItem, { FunctionsList } from "@/src/widgets/baritem";
 import { isVertical, orientation } from "../bar";
@@ -161,6 +157,7 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
          </box>
       ) : (
          <BarItem
+            id={"workspace"}
             cssClasses={classNames}
             onPrimaryClick={() => compositor.focusWorkspace(ws)}
             format={conf["workspace-format"]}
@@ -205,37 +202,22 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
          spacing={theme.bar.spacing}
          orientation={orientation}
          hexpand={isVertical}
-         cssClasses={[
-            "workspaces",
-            conf["workspace-format"] === "" ? "compact" : "",
-         ]}
+         cssClasses={["workspaces", "",]}
          $={(self) =>
-            attachHoverScroll(self, ({ dy }) => {
-               if (dy < 0) {
-                  FunctionsList[
-                     conf["on-scroll-up"] as keyof typeof FunctionsList
-                  ]();
-               } else if (dy > 0) {
+            attachHoverScroll(self, ({ dx }) => {
+               if (dx < 0) {
                   FunctionsList[
                      conf["on-scroll-down"] as keyof typeof FunctionsList
+                  ]();
+               } else if (dx > 0) {
+                  FunctionsList[
+                     conf["on-scroll-up"] as keyof typeof FunctionsList
                   ]();
                }
             })
          }
       >
-         {conf["workspace-format"] === "" ? (
-            <box
-               class="content"
-               orientation={orientation}
-               spacing={theme.bar.spacing}
-            >
-               <For each={workspaces}>
-                  {(ws) => <WorkspaceButton ws={ws} />}
-               </For>
-            </box>
-         ) : (
-            <For each={workspaces}>{(ws) => <WorkspaceButton ws={ws} />}</For>
-         )}
+         <For each={workspaces}>{(ws) => <WorkspaceButton ws={ws} />}</For>
       </box>
    );
 }

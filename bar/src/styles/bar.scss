@@ -75,8 +75,11 @@ window#bar {
     }
   }
 
+  #quicksettings {
+    min-width: 300pt;
+  }
+
   .bar-item {
-    min-width: 300px;
     background: transparent;
     font-weight: normal;
     @if $bar-vertical {
@@ -87,7 +90,7 @@ window#bar {
 
     .content {
       border-radius: $widget-radius;
-      background: transparent;
+      background: rgba($bar-button-bg, $bar-button-opacity);
       border: $bar-button-border-width solid $bar-button-border-color;
       color: $bar-button-fg;
       padding: $bar-button-padding;
@@ -101,14 +104,14 @@ window#bar {
 
     &:hover {
       .content {
-        background: transparent;
+        background: rgba($bar-button-bg-hover, $bar-button-opacity);
         transition: background $transition;
       }
     }
 
     &.active {
       .content {
-        background: transparent;
+        background: rgba($bar-button-bg-active, $bar-button-opacity);
         transition: background $transition;
       }
     }

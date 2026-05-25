@@ -189,7 +189,7 @@ export function attachHoverScroll(box: Gtk.Box, onScroll: ScrollHandler): void {
 
    const scrollCtrl = new Gtk.EventControllerScroll({
       flags:
-         Gtk.EventControllerScrollFlags.VERTICAL |
+         Gtk.EventControllerScrollFlags.HORIZONTAL |
          Gtk.EventControllerScrollFlags.DISCRETE,
    });
 
@@ -200,6 +200,8 @@ export function attachHoverScroll(box: Gtk.Box, onScroll: ScrollHandler): void {
       const shift = (state & Gdk.ModifierType.SHIFT_MASK) !== 0;
 
       onScroll({ dx, dy, hovered, shift });
+
+      console.log(dx, dy, hovered, shift)
 
       return Gdk.EVENT_STOP;
    });

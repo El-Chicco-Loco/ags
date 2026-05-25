@@ -39,25 +39,27 @@ window#bar .modules-end > *:last-child .bar-item,
 window#bar .modules-end > .bar-item:last-child {
   padding-right: 6px;
 }
+window#bar #quicksettings {
+  min-width: 300pt;
+}
 window#bar .bar-item {
-  min-width: 300px;
   background: transparent;
   font-weight: normal;
   padding: 6px 0;
 }
 window#bar .bar-item .content {
   border-radius: 8px;
-  background: transparent;
+  background: #1d1d20;
   border: 0px solid #36363a;
   color: #ffffff;
   padding: 0px 8px;
 }
 window#bar .bar-item:hover .content {
-  background: transparent;
+  background: #28282c;
   transition: background 0.2s;
 }
 window#bar .bar-item.active .content {
-  background: transparent;
+  background: #36363a;
   transition: background 0.2s;
 }
 @keyframes blink {

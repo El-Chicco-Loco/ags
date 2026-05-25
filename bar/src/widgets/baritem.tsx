@@ -1,13 +1,7 @@
 import { Gdk, Gtk } from "ags/gtk4";
 import { onCleanup } from "ags";
 import app from "ags/gtk4/app";
-import {
-   attachHoverScroll,
-   bash,
-   hasBarItem,
-   toggleQsModule,
-   toggleWindow,
-} from "../lib/utils";
+import { attachHoverScroll, bash, hasBarItem, toggleQsModule, toggleWindow } from "../lib/utils";
 import { theme } from "@/options";
 import { isVertical, orientation } from "../modules/bar/bar";
 import { windows_names } from "@/windows";
@@ -21,6 +15,7 @@ import Brightness from "../services/brightness";
 type FormatData = Record<string, JSX.Element>;
  
 type BarItemProps = JSX.IntrinsicElements["box"] & {
+   id?: string;
    window?: string;
    children?: any;
    format?: string;
@@ -184,6 +179,7 @@ export function attachHover(box: Gtk.Box, onHoverEnter: handleHover, onHoverLeav
 
  
 export default function BarItem({
+   id = "",
    window = "",
    children,
    format,
@@ -201,6 +197,7 @@ export default function BarItem({
  
    return (
       <box
+         name={id}
          class={"bar-item"}
          $={(self) => {
             if (window) {

@@ -9,6 +9,7 @@ export function QuickSettings() {
 
    return (
       <BarItem
+         id={"quicksettings"}
          window={windows_names.quicksettings}
          onHoverEnter={conf["on-hover-enter"]}
          onHoverLeave={conf["on-hover-leave"]}

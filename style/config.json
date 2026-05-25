@@ -33,7 +33,7 @@
       },
       "workspaces": {
         "workspace-format": "{id}",
-        "window-format": "{indicator} {icon}",
+        "window-format": "",
         "window-icon-size": 20,
         "taskbar-icons": {},
         "hide-empty": false,
