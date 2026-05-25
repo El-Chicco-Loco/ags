@@ -2,7 +2,7 @@ import app from "ags/gtk4/app"
 import request from "@/request";
 import { windows_names } from "@/windows";
 import {PowerMenuWindow} from "./src/windows/powermenu"
-const css = "/home/alienware/.config/ags/common/style/main.css";
+const css = "/home/alienware/.config/ags/style/main.css";
 
 app.start({
   icons: "/home/alienware/.icons/WhiteSur-nord-dark",

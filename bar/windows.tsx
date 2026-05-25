@@ -46,8 +46,8 @@ export function hideWindows() {
 export function windows() {
   const windows: Array<[condition: boolean, open: () => void]> = [
     [true, QuickSettingsWindow],
-    [config.notifications.enabled && hasBarItem("notificationslist"),    NotificationsListWindow],
-    [config.notifications.enabled,                                       NotificationsWindow],
+    [config.notifications.enabled && hasBarItem("notificationslist"), NotificationsListWindow],
+    [config.notifications.enabled, NotificationsWindow],
   ];
 
   for (const [condition, open] of windows) {

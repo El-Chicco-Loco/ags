@@ -2,8 +2,8 @@ import GLib from "gi://GLib?version=2.0";
 import { createState } from "ags";
 import { mkOptions } from "./src/lib/option";
 const configDir = GLib.get_user_config_dir();
-const configFile = "config/config.json";
-const themeFile = "config/theme.json";
+const configFile = "/home/alienware/.config/ags/style/config.json";
+const themeFile = "/home/alienware/.config/ags/style/theme.json";
 
 export const config = mkOptions(configFile, {
    transition: 0.2,

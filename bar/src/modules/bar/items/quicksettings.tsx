@@ -15,16 +15,6 @@ export function QuickSettings() {
          onPrimaryClick={conf["on-click"]}
          onSecondaryClick={conf["on-click-right"]}
          onMiddleClick={conf["on-click-middle"]}
-         /* data={{
-            icon: (
-               <image
-                  hexpand={isVertical}
-                  pixelSize={theme["icon-size"].normal}
-                  iconName={icons.settings}
-               />
-            ),
-         }}
-         format={conf.format} */
       />
    );
 }

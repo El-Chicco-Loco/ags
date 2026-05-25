@@ -49,7 +49,7 @@ export const FunctionsList = {
       isBarHovered = false; 
       setTimeout(() => {if (!isBarHovered && !isPopupHovered) {
          app.get_window(windows_names.quicksettings)?.hide()
-      }}, 200)
+      }}, 300)
 },
    "open-qs-popup": () => {
       isPopupHovered = true
@@ -58,22 +58,14 @@ export const FunctionsList = {
       isPopupHovered = false;
       setTimeout(() => {if (!isBarHovered && !isPopupHovered) {
          app.get_window(windows_names.quicksettings)?.hide()
-      }}, 200)
+      }}, 300)
 },
    "toggle-calendar": () => toggleWindow(windows_names.calendar),
    "toggle-powermenu": () => toggleWindow(windows_names.powermenu),
    "toggle-clipboard": () => toggleWindow(windows_names.clipboard),
    "toggle-weather": () => toggleQsModule(windows_names.weather),
    "toggle-notifs": () => toggleQsModule(windows_names.notificationslist),
-   "toggle-volume": () =>
-      toggleQsModule(
-         windows_names.volume,
-         hasBarItem("volume")
-            ? "volume"
-            : hasBarItem("microphone")
-              ? "microphone"
-              : undefined,
-      ),
+   "toggle-volume": () => toggleQsModule(windows_names.volume, hasBarItem("volume") ? "volume" : hasBarItem("microphone") ? "microphone" : undefined,),
    "toggle-network": () => toggleQsModule(windows_names.network),
    "toggle-bluetooth": () => toggleQsModule(windows_names.bluetooth),
    "toggle-power": () => toggleQsModule(windows_names.power, "battery"),
@@ -222,11 +214,7 @@ export default function BarItem({
                onCleanup(() => app.disconnect(appconnect));
             }
 
-            attachHover(self, () => {
-               handleHover(onHoverEnter);
-            }, () => {
-               handleHover(onHoverLeave);
-            });
+            attachHover(self, () => {handleHover(onHoverEnter)}, () => {handleHover(onHoverLeave)});
          }}
          {...rest}
       >
