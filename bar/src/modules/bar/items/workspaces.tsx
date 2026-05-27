@@ -17,14 +17,7 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
    const workspaces = compositor.monitorWorkspaces(gdkmonitor);
    const focusedWorkspace = compositor.focusedWorkspace();
    // const focusedWindow = compositor.focusedWindow();
-
-
-   const corr_workspaces = workspaces.peek().slice(1);
-
-   workspaces()
-   console.log('=================')
-   console.log(corr_workspaces)
-   console.log(workspaces.peek().slice(1))
+   const corr_workspaces = workspaces.peek().slice(1); 
 
 
    function WorkspaceButton({ ws }: { ws: any }) {
@@ -45,7 +38,7 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
       });
 
       const classNames = focusedWorkspace((fws) => {
-         const classes = ["bar-item", "workspace"];
+         const classes = ["bar-item", "workspaces"];
          if (
             fws &&
             compositor.workspaceId(fws) === compositor.workspaceId(ws)
@@ -58,8 +51,10 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
          return classes;
       });
 
+
+      console.log(classNames)
+
       return <BarItem
-            id={"workspace"}
             cssClasses={classNames}
             onPrimaryClick={/* () => compositor.focusWorkspace(ws) */''}
             format={conf["workspace-format"]}

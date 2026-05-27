@@ -153,7 +153,7 @@ window#bar {
             @if $bar-vertical {
               min-height: 30px;
             } @else {
-              min-width: 30px;
+              min-width: 130px;
             }
             transition: all $transition;
           }
@@ -175,11 +175,16 @@ window#bar {
       }
     }
     @if $bar-position == "top" or $bar-position == "bottom" {
-      .workspace {
+      .workspaces {
         &.minimal,
         &.empty {
           .content {
             padding: multiply-padding($bar-button-padding, 1.5);
+          }
+        }
+        &.active {
+          .content {
+            background: $accent;
           }
         }
       }
