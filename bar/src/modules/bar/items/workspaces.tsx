@@ -16,98 +16,16 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
    const conf = config.bar.modules.workspaces;
    const workspaces = compositor.monitorWorkspaces(gdkmonitor);
    const focusedWorkspace = compositor.focusedWorkspace();
-   const focusedWindow = compositor.focusedWindow();
+   // const focusedWindow = compositor.focusedWindow();
 
-   function AppButton({ window: win }: { window: any }) {
-      const appsIcons = conf["taskbar-icons"];
-      const windowClass = compositor.windowClass(win);
-      const appInfo = getAppInfo(windowClass);
-      const iconName =
-         appsIcons[windowClass] || appInfo?.iconName || icons.apps_default;
 
-      const title = createBinding(win, "title");
+   const corr_workspaces = workspaces.peek().slice(1);
 
-      const classes = focusedWindow((focused) => {
-         const classes = ["taskbar-button"];
-         if (
-            focused &&
-            compositor.windowId(focused) === compositor.windowId(win)
-         ) {
-            classes.push("focused");
-         }
-         return classes;
-      });
+   workspaces()
+   console.log('=================')
+   console.log(corr_workspaces)
+   console.log(workspaces.peek().slice(1))
 
-      const hasIndicator = conf["window-format"].includes("{indicator}");
-      const formatWithoutIndicator = conf["window-format"]
-         .replace(/\{indicator\}\s*/g, "")
-         .trim();
-      const mainFormat = formatWithoutIndicator
-         ? formatWithoutIndicator
-         : "{icon}";
-
-      const indicatorValign =
-         config.bar.position === "top"
-            ? Gtk.Align.START
-            : config.bar.position === "bottom"
-              ? Gtk.Align.END
-              : Gtk.Align.CENTER;
-
-      const indicatorHalign =
-         config.bar.position === "left"
-            ? Gtk.Align.START
-            : config.bar.position === "right"
-              ? Gtk.Align.END
-              : Gtk.Align.CENTER;
-
-      return (
-         <overlay hexpand={isVertical} cssClasses={classes}>
-            {hasIndicator && (
-               <box
-                  $type="overlay"
-                  class="indicator"
-                  valign={indicatorValign}
-                  halign={indicatorHalign}
-                  vexpand
-                  hexpand
-               />
-            )}
-            <BarItem
-               format={mainFormat}
-               onPrimaryClick={() => compositor.focusWindow(win)}
-               onMiddleClick={() => compositor.closeWindow(win)}
-               data={{
-                  icon: (
-                     <image
-                        iconName={iconName}
-                        pixelSize={conf["window-icon-size"]}
-                        hexpand={isVertical}
-                     />
-                  ),
-                  title: (
-                     <label
-                        label={title((t) =>
-                           truncateByFormat(t, "title", mainFormat),
-                        )}
-                        hexpand={isVertical}
-                     />
-                  ),
-                  name: (
-                     <label
-                        label={truncateByFormat(
-                           appInfo?.name.trim() || windowClass,
-                           "name",
-                           mainFormat,
-                        )}
-                        hexpand={isVertical}
-                     />
-                  ),
-               }}
-               tooltipText={title}
-            />
-         </overlay>
-      );
-   }
 
    function WorkspaceButton({ ws }: { ws: any }) {
       const windows = compositor.workspaceWindows(ws);
@@ -140,26 +58,10 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
          return classes;
       });
 
-      return conf["workspace-format"] === "" ? (
-         <box
-            cssClasses={classNames}
-            valign={Gtk.Align.CENTER}
-            halign={Gtk.Align.CENTER}
-            visible={visible}
-         >
-            <Gtk.GestureClick
-               onPressed={(ctrl) => {
-                  const button = ctrl.get_current_button();
-                  if (button === Gdk.BUTTON_PRIMARY)
-                     compositor.focusWorkspace(ws);
-               }}
-            />
-         </box>
-      ) : (
-         <BarItem
+      return <BarItem
             id={"workspace"}
             cssClasses={classNames}
-            onPrimaryClick={() => compositor.focusWorkspace(ws)}
+            onPrimaryClick={/* () => compositor.focusWorkspace(ws) */''}
             format={conf["workspace-format"]}
             visible={visible}
             data={{
@@ -168,33 +70,9 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
                      label={compositor.workspaceId(ws).toString()}
                      hexpand={isVertical}
                   />
-               ),
-               name: (
-                  <label
-                     label={compositor.workspaceName(ws)}
-                     hexpand={isVertical}
-                  />
-               ),
-               count: (
-                  <label
-                     label={windowCount((c) => c.toString())}
-                     hexpand={isVertical}
-                  />
-               ),
-               windows: (
-                  <box
-                     orientation={orientation}
-                     spacing={theme.bar.spacing}
-                     visible={windowCount((c) => c > 0)}
-                  >
-                     <For each={windows}>
-                        {(win: any) => <AppButton window={win} />}
-                     </For>
-                  </box>
-               ),
+               )
             }}
-         />
-      );
+         />;
    }
 
    return (

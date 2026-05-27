@@ -42,7 +42,7 @@ export const compositor = {
          return createBinding(hyprland, "workspaces").as((workspaces) =>
             workspaces
                .filter((ws) => ws.monitor?.model === model)
-               .sort((a, b) => a.id - b.id),
+               .sort((a, b) => a.id - b.id).slice(1),
          );
       }
       if (niri) {
