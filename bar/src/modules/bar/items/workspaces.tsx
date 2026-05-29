@@ -17,7 +17,6 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
    const workspaces = compositor.monitorWorkspaces(gdkmonitor);
    const focusedWorkspace = compositor.focusedWorkspace();
    // const focusedWindow = compositor.focusedWindow();
-   const corr_workspaces = workspaces.peek().slice(1); 
 
 
    function WorkspaceButton({ ws }: { ws: any }) {
@@ -51,14 +50,33 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
          return classes;
       });
 
+      let space = focusedWorkspace((fws) => {
+         const pos = compositor.workspaceId(ws) - compositor.workspaceId(fws);
+         let sp = 0;
+         if (compositor.workspaceId(ws) === 1) {
+            sp = 860 + pos*(theme.bar.spacing + 27);
+         }
+         return sp;
+      });
 
-      console.log(classNames)
+      let opacity = focusedWorkspace((fws) => {
+         const pos = Math.abs(compositor.workspaceId(ws) - compositor.workspaceId(fws));
+         let offset = 0.75;
+         if (compositor.workspaceId(fws) === compositor.workspaceId(ws)) {
+            offset = 1;
+         }
+         let opacity = offset - pos*0.25;
+         return opacity;
+      });
+
 
       return <BarItem
             cssClasses={classNames}
             onPrimaryClick={/* () => compositor.focusWorkspace(ws) */''}
             format={conf["workspace-format"]}
             visible={visible}
+            marginStart={space}
+            opacity={opacity}
             data={{
                id: (
                   <label
@@ -74,7 +92,8 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
       <box
          spacing={theme.bar.spacing}
          orientation={orientation}
-         hexpand={isVertical}
+         hexpand={true}
+         halign={Gtk.Align.START}
          cssClasses={["workspaces", "",]}
          $={(self) =>
             attachHoverScroll(self, ({ dx }) => {
