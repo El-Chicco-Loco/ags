@@ -67,43 +67,11 @@ window#bar .bar-item.active .content {
     color: #e62d42;
   }
 }
-window#bar .workspaces.compact {
-  padding: 6px 0;
-}
-window#bar .workspaces.compact .content {
-  padding: 0px 8px;
-  background: #1d1d20;
-  border-radius: 8px;
-}
-window#bar .workspaces.compact .content .workspace {
-  all: unset;
-  min-width: 20px;
-  min-height: 14px;
-  border-radius: 8px;
-  background: #28282c;
-  transition: all 0.2s;
-}
-window#bar .workspaces.compact .content .workspace.active {
+window#bar .workspaces .workspaces.minimal .content, window#bar .workspaces .workspaces.empty .content {
   background: #3584e4;
-  min-width: 30px;
-  transition: all 0.2s;
 }
-window#bar .workspaces.compact:hover .content {
-  background: #28282c;
-  transition: background 0.2s;
-}
-window#bar .workspaces.compact:hover .content .workspace {
-  background: rgb(64.2857142857, 64.2857142857, 70.7142857143);
-}
-window#bar .workspaces.compact:hover .content .workspace.active {
-  background: rgb(97.9868995633, 159.3930131004, 234.0131004367);
-  transition: all 0.2s;
-}
-window#bar .workspaces.compact:hover .content .workspace {
-  transition: all 0.2s;
-}
-window#bar .workspaces .workspace.minimal .content, window#bar .workspaces .workspace.empty .content {
-  padding: 0px 12px;
+window#bar .workspaces .workspaces.active .content {
+  background: #3584e4;
 }
 window#bar .record-indicator {
   animation-name: blink;
